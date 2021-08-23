@@ -13,8 +13,6 @@ import { UsersService } from './services/users-service/users.service'
 export class AppComponent implements OnInit, OnDestroy {
   inactiveUsersSubscription: Subscription
   activeUsersSubscription: Subscription
-  inactiveUsers: string[] = []
-  activeUsers: string[] = []
   inactiveClicks = 0
   activeClicks = 0
 
@@ -24,9 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.activeUsers = this.usersService.getActiveUsers()
-    this.inactiveUsers = this.usersService.getInactiveUsers()
-
     this.inactiveUsersSubscription = this.counterService
       .getActiveClicks()
       .subscribe(
@@ -47,13 +42,5 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.inactiveUsersSubscription.unsubscribe()
     this.activeUsersSubscription.unsubscribe()
-  }
-
-  onSetToInactive(id: number): void {
-    this.usersService.onSetToInactive(id)
-  }
-
-  onSetToActive(id: number): void {
-    this.usersService.onSetToActive(id)
   }
 }
